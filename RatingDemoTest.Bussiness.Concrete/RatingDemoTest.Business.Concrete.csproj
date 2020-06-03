@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F3AAA299-F162-4D22-98C3-B6BF2260676D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RatingDemoTest.Business.Concrete</RootNamespace>
+    <AssemblyName>RatingDemoTest.Business.Concrete</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RatingDemoTest.Bussiness.DTO\RatingDemoTest.Business.DTO.csproj">
+      <Project>{FD924F60-DCE8-44A3-BE2A-219E47B21E13}</Project>
+      <Name>RatingDemoTest.Business.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatingDemoTest.Bussiness.Interface\RatingDemoTest.Business.Interface.csproj">
+      <Project>{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}</Project>
+      <Name>RatingDemoTest.Business.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatingDemoTest.Log\RatingDemoTest.Log.csproj">
+      <Project>{14F5A9AA-C146-4D59-B085-9B76F4DF2AC1}</Project>
+      <Name>RatingDemoTest.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatingDemoTest.Repository.Entities\RatingDemoTest.Repository.Entities.csproj">
+      <Project>{381CF893-1979-45E7-AEAE-BB9F12272F42}</Project>
+      <Name>RatingDemoTest.Repository.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RatingDemoTest.Repository.Interface\RatingDemoTest.Repository.Interface.csproj">
+      <Project>{597C88C7-E0EE-4AF2-93D1-0245227619D4}</Project>
+      <Name>RatingDemoTest.Repository.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
