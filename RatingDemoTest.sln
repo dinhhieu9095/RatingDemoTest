@@ -32,9 +32,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingDemoTest.Business.Interface", "RatingDemoTest.Bussiness.Interface\RatingDemoTest.Business.Interface.csproj", "{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Document", "6. Document", "{B59685E9-B65E-4CE1-9A2F-7B8E48B83F5D}"
-	ProjectSection(SolutionItems) = preProject
-		F:\RatingDemo\ratingdemosql.sql = F:\RatingDemo\ratingdemosql.sql
-	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingDemoTest.Document", "RatingDemoTest.Document\RatingDemoTest.Document.csproj", "{0DE4C5F5-C76E-485C-8323-69C954ADD3C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +77,10 @@ Global
 		{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DE4C5F5-C76E-485C-8323-69C954ADD3C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DE4C5F5-C76E-485C-8323-69C954ADD3C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DE4C5F5-C76E-485C-8323-69C954ADD3C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DE4C5F5-C76E-485C-8323-69C954ADD3C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +95,7 @@ Global
 		{F3AAA299-F162-4D22-98C3-B6BF2260676D} = {49F471F3-F88F-4A25-9A80-DE2DA92FEFA9}
 		{FD924F60-DCE8-44A3-BE2A-219E47B21E13} = {49F471F3-F88F-4A25-9A80-DE2DA92FEFA9}
 		{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC} = {49F471F3-F88F-4A25-9A80-DE2DA92FEFA9}
+		{0DE4C5F5-C76E-485C-8323-69C954ADD3C7} = {B59685E9-B65E-4CE1-9A2F-7B8E48B83F5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA25A69A-A23E-4CE2-BBA2-6395660E7566}
