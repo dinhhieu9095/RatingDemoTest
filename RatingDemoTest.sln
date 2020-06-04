@@ -31,6 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingDemoTest.Business.DTO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatingDemoTest.Business.Interface", "RatingDemoTest.Bussiness.Interface\RatingDemoTest.Business.Interface.csproj", "{BD76D96B-87EB-4FBF-9CA4-D96E5CE6D0EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Document", "6. Document", "{B59685E9-B65E-4CE1-9A2F-7B8E48B83F5D}"
+	ProjectSection(SolutionItems) = preProject
+		F:\RatingDemo\ratingdemosql.sql = F:\RatingDemo\ratingdemosql.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
