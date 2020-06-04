@@ -45,7 +45,19 @@ namespace RatingDemoTest.Business.Concrete
             IList<QuestionDTO> questionDTOs = new List<QuestionDTO>();
             try
             {
-                questionDTOs = this.UnitOfWork.GetItems<QuestionDTO, Question>(e=>e.ID == filterDTO.ID);
+                questionDTOs = this.UnitOfWork.GetQueryable<Question>().Where(e=>e.ServiceID == filterDTO.ID)
+                    .Select(e=> new QuestionDTO() {
+                        ID = e.ID,
+                        ServiceID = e.ServiceID,
+                        Title = e.Title,
+                        AnswerOptions = e.AnswerOptions.Select(a=> new AnswerOptionDTO {
+                            ID = a.ID,
+                            Icon = a.Icon,
+                            Point = a.Point,
+                            QuestionID = a.QuestionID,
+                            Title = a.Title
+                        }).ToList()
+                    }).ToList();
             }
             catch (Exception ex)
             {
@@ -73,26 +85,29 @@ namespace RatingDemoTest.Business.Concrete
             var tran = UnitOfWork.BeginTransaction();
             try
             {
-                var answer = UnitOfWork.GetItem<Answer>(e => e.ID == answerDTO.ID);
+                var answer = UnitOfWork.GetItem<Answer>(e => e.QuestionID == answerDTO.QuestionID && e.UserID == answerDTO.UserID);
                 if(answer!= null)
                 {
-                    answer = AutoMapper.Mapper.Map<Answer>(answerDTO);
+                    answer.Point = answerDTO.Point;
+                    answer.QuestionID= answerDTO.QuestionID;
+                    answer.UserID = answerDTO.UserID;
+                    answer.Comment = answerDTO.Comment;
                     UnitOfWork.Update<Answer>(answer);
                     UnitOfWork.Commit(tran);
                     rs = true;
                 }
                 else
                 {
-                    UnitOfWork.Insert<AnswerDTO, Answer>(answerDTO);
+                    answer = UnitOfWork.InsertWidthResult<AnswerDTO, Answer>(answerDTO);
                     UnitOfWork.Commit(tran);
                     rs = true;
                 }
-                
+                Logging.LogInfo(answer.QuestionID + "       " + answer.Point + "        " + answerDTO.Comment + "       " + DateTime.Now.ToString("dd/MM/yyy HH:mm:ss"));
             }
             catch (Exception ex)
             {
                 UnitOfWork.Rollback(tran);
-                Logging.LogError("Business-UpdateAnswer: ", ex);
+                Logging.LogError("Business-SaveAnswer: ", ex);
             }
             return rs;
         }

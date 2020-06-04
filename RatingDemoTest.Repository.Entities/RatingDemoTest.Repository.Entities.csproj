@@ -58,6 +58,9 @@
     <Compile Include="Answer.cs">
       <DependentUpon>RatingDemoTestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AnswerOption.cs">
+      <DependentUpon>RatingDemoTestModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs">
       <DependentUpon>RatingDemoTestModel.tt</DependentUpon>
@@ -90,7 +93,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RatingDemoTestModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="RatingDemoTestModel.edmx.diagram">
       <DependentUpon>RatingDemoTestModel.edmx</DependentUpon>
     </None>

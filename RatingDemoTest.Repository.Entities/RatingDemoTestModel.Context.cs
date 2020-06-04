@@ -29,5 +29,6 @@ namespace RatingDemoTest.Repository.Entities
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<AnswerOption> AnswerOptions { get; set; }
     }
 }

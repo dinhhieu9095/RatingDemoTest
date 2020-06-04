@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerDTO.cs" />
+    <Compile Include="AnswerOptionDTO.cs" />
     <Compile Include="FilterDTO.cs" />
     <Compile Include="MappingProfileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

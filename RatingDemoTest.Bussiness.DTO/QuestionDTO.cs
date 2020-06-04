@@ -10,14 +10,14 @@ namespace RatingDemoTest.Business.DTO
     {
         public QuestionDTO()
         {
-            this.Answers = new List<AnswerDTO>();
+            this.AnswerOptions = new List<AnswerOptionDTO>();
         }
 
         public int ID { get; set; }
         public string Title { get; set; }
         public int ServiceID { get; set; }
 
-        public List<AnswerDTO> Answers { get; set; }
+        public List<AnswerOptionDTO> AnswerOptions { get; set; }
         public ServiceDTO Service { get; set; }
     }
 }

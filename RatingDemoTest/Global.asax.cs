@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using log4net.Config;
 using RatingDemoTest.Business.DTO;
 using RatingDemoTest.MVC;
 using System;
@@ -22,6 +23,7 @@ namespace RatingDemoTest
             Mapper.Initialize(x => { x.AddProfile<MappingProfileModel>();
                 x.AddProfile<MappingProfileDTO>();
             });
+            XmlConfigurator.Configure();
         }
     }
 }

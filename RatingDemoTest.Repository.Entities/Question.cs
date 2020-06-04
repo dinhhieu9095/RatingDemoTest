@@ -18,6 +18,7 @@ namespace RatingDemoTest.Repository.Entities
         public Question()
         {
             this.Answers = new HashSet<Answer>();
+            this.AnswerOptions = new HashSet<AnswerOption>();
         }
     
         public int ID { get; set; }
@@ -27,5 +28,7 @@ namespace RatingDemoTest.Repository.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual Service Service { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AnswerOption> AnswerOptions { get; set; }
     }
 }

@@ -196,6 +196,22 @@ namespace RatingDemoTest.Repository.EF
                 return false;
             }
         }
+        public TEntity InsertWidthResult<TDTO, TEntity>(TDTO dTO) where TEntity : class, new()
+        {
+            try
+            {
+                DbSet<TEntity> dbSet = Context.Set<TEntity>();
+                TEntity entity = Mapper.Map<TEntity>(dTO);
+                dbSet.Add(entity);
+                Context.SaveChanges();
+                return entity;
+            }
+            catch (Exception ex)// (DbEntityValidationException dbex)
+            {
+                Logging.LogError("RatingDemoTest.Repository.EF-UnitOfWork-Insert(TDTO m_DTO)", ex);
+                return new TEntity();
+            }
+        }
         public bool Insert<TEntity>(TEntity entity) where TEntity : class, new()
         {
             try

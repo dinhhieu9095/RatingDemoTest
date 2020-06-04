@@ -1,31 +1,456 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Rating demo";
+
 }
+<div class="container body-content " id="home-screen" style="display:none;">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div>
+        <h1 class="text-uppercase text-center">Đánh giá chất lượng dịch vụ</h1>
+        <p class="text-center">Khảo sát dịch vụ tại ALT</p>
+        <div class="text-center">
+            <button class="text-center btn btn-success" onclick="ratingDemo.getServices()">Bắt đầu</button>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
     </div>
 </div>
+<div class="container body-content" id="finish-screen" style="display:none;">
+
+    <div>
+        <div class="row text-center">
+            <img src="~/Content/Images/emoji/Asset.png" width="50" height="50" />
+        </div>
+        <h1 class="text-uppercase text-center">Cảm ơn đánh giá của bạn</h1>
+        <p class="text-center">ALT IELTS Gia sư sẽ nỗ lực  hơn để đem lại trải nghiệm thú vị trong thời gian tới</p>
+        <p class="text-center">Hã tiếp tục theo dõi và ủng hộ chúng tôi tại <b>ielsgiasu.com</b></p>
+        <div class="text-center">
+            <button class="text-center" id="refresh-countdown" onclick="ratingDemo.refreshScreens('answer-screen')">Đánh giá lại từ đầu</button>
+
+        </div>
+    </div>
+</div>
+<div class="container body-content " id="login-screen" style="display:none; width:50%">
+
+    <form style="background-color:red;" >
+        <div class="row text-center">
+            <img src="~/Content/Images/login/arrow-button.png" width="50" height="50" />
+        </div>
+        <div class="row text-center">
+            <label>Đăng nhập</label>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="form-control" placeholder="PassCode" type="password" id="passcode" />
+                <span class="text-danger" id="validation-login"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Chọn dịch vụ</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group" id="service-list">
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn default" type="button" style="background-color:mediumvioletred" onclick="ratingDemo.getQuestions()">Bắt đầu đánh giá</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container body-content " id="answer-screen" style="box-shadow: 5px 10px #888888; display:none;">
+
+    <form style="background-color:white; height:50%">
+        <div class="row text-center">
+            <span id="question-title"></span>
+        </div>
+        <div id="answer-option">
+            
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <span class="text-center" id="rating-star">
+                    <img src="~/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar(1)" height="50" width="50">
+                    <img src="~/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar(2)" height="50" width="50">
+                    <img src="~/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar(3)" height="50" width="50">
+                    <img src="~/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar(4)" height="50" width="50">
+                    <img src="~/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar(5)" height="50" width="50">
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <textarea class="form-control" placeholder="Nhận xét" id="answer-comment"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn default" type="button" style="background-color:mediumvioletred" onclick="ratingDemo.saveAnswer()">Đánh giá</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="pop-sm-change" tabindex="-1" data-width="400" >
+    <div class="modal-dialog w500" >
+        <div class="modal-content" style="background-color:red;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    Đổi dịch vụ
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input class="form-control" placeholder="PassCode" type="password" id="passcode-popup" />
+                        <span class="text-danger" id="validation-popup"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Chọn dịch vụ</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group" id="service-list-popup">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn default" type="button" style="background-color:mediumvioletred" onclick="ratingDemo.getPopupQuestions()">Bắt đầu đánh giá</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="pop-sm-logout" tabindex="-1" data-width="400">
+    <div class="modal-dialog w500">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    Vui lòng nhập passcode
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 md-pr-0">
+                        <div class="form-group">
+                            <input class="form-control" type="password" placeholder="Passcode" id="passcode-confirm" />
+                            <span class="text-danger" id="validation-logout"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="ratingDemo.onlogOut()">Đăng xuất</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" id="loading" style="display:none;"></div>
+@section scripts
+{
+    <script type="text/javascript">
+        String.format = function () {
+            var s = arguments[0];
+            for (var i = 0; i < arguments.length - 1; i++) {
+                var reg = new RegExp("\\{" + i + "\\}", "gm");
+                s = s.replace(reg, arguments[i + 1]);
+            }
+            return s;
+        };
+        var retry;
+        var isOnline = true;
+
+        var serviceId = 0;
+        var isLogin = false;
+        var answer = {};
+        var question = {};
+        var answerOptions = [];
+        var services = [];
+        var hasSubmit = false;
+        $(document).ready(function () {
+            ratingDemo.refreshScreens('home-screen');
+            var retry = setInterval(function () {
+                $.ajax({
+                    type: "HEAD",
+                    url: '/',
+                    success: function () {
+                        isOnline = true;
+                        $('.dropbtn').css("background-color", "#4CAF50");
+                    }, error: function () {
+                        isOnline = false;
+                        $('.dropbtn').css("background-color", "wheat");
+                    }
+                })
+            }, 5000);
+        });
+        var ratingDemo = {
+            refreshScreens: function (screen) {
+                $("div[id*='screen']").hide();
+                $("#" + screen).show();
+                if (screen == 'answer-screen') {
+                    ratingDemo.chooseStar(0);
+
+                }
+            },
+            logOut: function () {
+                $('#pop-sm-logout').modal('show');
+            },
+            onlogOut: function () {
+                var url = '@Url.Action("Logout", "Home")';
+                var filter = {
+                    PassCode: $('#passcode-confirm').val()
+                }
+                ratingDemoService.post(url, JSON.stringify(filter), function (rs) {
+                    if (rs != undefined && rs.Result == true) {
+                        $('#pop-sm-logout').modal('hide');
+                        $('.dropdown').hide();
+                        ratingDemo.refreshScreens('home-screen');
+                    } else {
+                        $('#validation-logout').html(rs.Message);
+                    }
+                }, function (er) { })
+            },
+            changeService: function () {
+                var html = "";
+                for (var i = 0; i < services.length; i++) {
+
+                    html += String.format(
+                        '<div class="col-md-4">' +
+                        '<div class="gallery "  id="service-popup-id-{2}">' +
+                        '<a href="javascript:;" onclick="ratingDemo.choosePopupService({2})">' +
+                        '<img src="/Content/Images/login/{0}" width="600" height="400">' +
+                        '</a>' +
+                        '<div class="desc">{1}</div>' +
+                        '</div>' +
+                        '</div>'
+                        , services[i].Icon
+                        , services[i].Title
+                        , services[i].ID
+                    );
+
+
+                }
+                $('#service-list-popup').html(html);
+                if (serviceId != undefined && serviceId != 0) {
+                    $('#service-popup-id-' + serviceId).addClass('active');
+                }
+                $('#pop-sm-change').modal('show');
+
+            },
+            getServices: function () {
+                debugger
+                ratingDemo.refreshScreens('login-screen');
+                $('#service-list').empty();
+                var url = '@Url.Action("GetServices", "Home")';
+                ratingDemoService.get(url, null, function (rs) {
+                    if (rs !== undefined && rs.Result === true) {
+                        services = rs.Data;
+                        var html = "";
+                        for (var i = 0; i < services.length; i++) {
+                           
+                                html += String.format(
+                                    '<div class="col-md-4">' +
+                                    '<div class="gallery "  id="service-id-{2}">' +
+                                    '<a href="javascript:;" onclick="ratingDemo.chooseService({2})">' +
+                                    '<img src="/Content/Images/login/{0}" width="600" height="400">' +
+                                    '</a>' +
+                                    '<div class="desc">{1}</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                    , services[i].Icon
+                                    , services[i].Title
+                                    , services[i].ID
+                                );
+                            
+
+                        }
+                        $('#service-list').html(html);
+                        serviceId = services[0].ID;
+                        $('#service-id-' + serviceId).addClass('active');
+                    }
+                },
+                    function (er) { });
+            },
+            chooseService: function (id) {
+                serviceId = id;
+                $("div[id*='service-id-']").removeClass('active');
+                $('#service-id-' + id).addClass('active');
+            },
+            choosePopupService: function (id) {
+                serviceId = id;
+                $("div[id*='service-popup-id-']").removeClass('active');
+                $('#service-popup-id-' + id).addClass('active');
+            },
+            getPopupQuestions: function () {
+                var url = '@Url.Action("GetQuestions", "Home")';
+                var filter = {
+                    ID: serviceId,
+                    PassCode: $('#passcode-popup').val()
+                }
+                ratingDemoService.post(url, JSON.stringify(filter), function (rs) {
+                    if (rs !== undefined && rs.Result === true) {
+                        $('#pop-sm-change').modal('hide');
+                        ratingDemo.refreshScreens('answer-screen');
+                        $('.dropdown').show();
+                        question = rs.Data[0];
+                        answer.QuestionID = question.ID;
+                        $('#question-title').html(question.Title);
+                        answerOptions = question.AnswerOptions;
+                    } else {
+                        $('#validation-popup').html(rs.Message);
+                    }
+                },
+                    function (er) { });
+            },
+            getQuestions: function () {
+                var url = '@Url.Action("GetQuestions", "Home")';
+                var filter = {
+                    ID: serviceId,
+                    PassCode: $('#passcode').val()
+                }
+                ratingDemoService.post(url, JSON.stringify(filter), function (rs) {
+                    if (rs !== undefined && rs.Result === true) {
+                        $('#pop-sm-change').modal('hide');
+                        ratingDemo.refreshScreens('answer-screen');
+                        isLogin = true;
+                        $('.dropdown').show();
+                        question = rs.Data[0];
+                        answer.QuestionID = question.ID;
+                        $('#question-title').html(question.Title);
+                        answerOptions = question.AnswerOptions;
+                    } else {
+                        $('#validation-login').html(rs.Message);
+                    }
+                },
+                    function (er) { });
+            },
+            chooseStar: function (point) {
+                var html = '';
+                for (var i = 0; i < 5; i++) {
+                    if (i + 1 <= point) {
+                        html += String.format(
+                            '<img src="/Content/Images/star.png" onclick="ratingDemo.chooseStar({0})" height="50" width="50">'
+                            , i + 1
+                        );
+                    } else {
+                        html += String.format(
+                            '<img src="/Content/Images/star-not-rating.png" onclick="ratingDemo.chooseStar({0})" height="50" width="50">'
+                            , i + 1
+                        );
+                    }
+                }
+                $('#rating-star').html(html);
+                answer.Point = point;
+                debugger
+                if (answerOptions != undefined) {
+                    var ansOp = answerOptions.filter(e => e.Point == point)[0];
+                    if (ansOp != undefined) {
+                        var ansOpHtml = String.format('<div class="row text-center">' +
+                            '<label id="answer-title" class="row">{0}</label>' +
+                            '</div>' +
+                            '<div class="row text-center">' +
+                            '<img src="/Content/Images/emoji/{1}" height="50" width="50" />' +
+                            '</div>', ansOp.Title, ansOp.Icon);
+                        $('#answer-option').html(ansOpHtml);
+                    } else {
+                        $('#answer-option').html('');
+                        $('#answer-comment').val('');
+                    }
+                   
+                }
+               
+            },
+            saveAnswer: function () {
+                if (hasSubmit == false) {
+                    hasSubmit = true;
+                    ratingDemo.showLoading(true);
+                answer.Comment = $('#answer-comment').val();
+                var url = '@Url.Action("SaveAnswer", "Home")';
+                    ratingDemoService.post(url, JSON.stringify(answer), function (rs) {
+                        hasSubmit = false;
+                        ratingDemo.showLoading(false);
+                    if (rs != undefined && rs.Result == true) {
+                        ratingDemo.refreshScreens('finish-screen');
+                        var count = 5;
+                        var timer = setInterval(function () {
+                            if (count < 0) {
+                                ratingDemo.refreshScreens('answer-screen');
+                                clearInterval(timer);
+                            } else {
+                                $('#refresh-countdown').html(String.format('Đánh giá lại từ đầu ({0})', count));
+                                count--;
+                            }
+                        }, 1000);
+                    }
+                    }, function (er) {
+                        debugger
+                        hasSubmit = false;
+                        setTimeout(function () {
+                        ratingDemo.saveAnswer();
+                    }, 5000);
+                    });
+                }
+                
+            },
+            showLoading: function (val) {
+                if (val == true) {
+                    $('#loading').show();
+                } else {
+                    $('#loading').hide();
+                }
+            }
+        };
+        var ratingDemoService = {
+            get: function (urlMethod, dataString, onGetSuccess, onGetError) {
+                /// <summary>
+                /// hàm gọi service theo phương thức get
+                /// </summary>
+                /// <param name="urlMethod"> địa chỉ service +  tên phương thức gọi </param>
+                /// <param name="dataString"> dữ liệu đối số theo kiểu json </param>
+                /// <param name="onGetSuccess"> hàm call back khi gọi thành công</param>
+                /// <param name="onGetError"> hàm call back khi thất bại </param>
+
+                $.ajax({
+                    type: "GET",
+                    url: urlMethod,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    data: dataString,
+                    dataType: "json",
+                    success: onGetSuccess,
+                    error: onGetError
+                });
+            },
+            post: function (urlMethod, dataString, onPostSuccess, onPostError) {
+                /// <summary>
+                /// hàm gọi service theo phương thức post
+                /// </summary>
+                /// <param name="urlMethod"> địa chỉ service +  tên phương thức gọi </param>
+                /// <param name="dataString"> dữ liệu đối số theo kiểu json </param>
+                /// <param name="onGetSuccess"> hàm call back khi gọi thành công</param>
+                /// <param name="onGetError"> hàm call back khi thất bại </param>
+
+                $.ajax({
+                    type: "POST",
+                    url: urlMethod,
+                    async: false,
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    data: dataString,
+                    dataType: "json",
+                    success: onPostSuccess,
+                    error: onPostError
+                });
+            },
+        }
+    </script>
+}

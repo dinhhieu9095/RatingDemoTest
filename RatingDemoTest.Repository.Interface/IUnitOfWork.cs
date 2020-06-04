@@ -86,8 +86,14 @@ namespace RatingDemoTest.Repository.Interface
         /// <param name="entity">Biểu ghi</param>
         /// <returns>TEntity</returns>
         bool Insert<TEntity>(TEntity entity) where TEntity : class, new();
+        /// <summary>
+        /// Thêm mới biểu ghi.
+        /// </summary>
+        /// <param name="dTO">Biểu ghi</param>
+        /// <returns>TEntity</returns>
+        TEntity InsertWidthResult<TDTO, TEntity>(TDTO dTO) where TEntity : class, new();
         #endregion
-        #region Update
+            #region Update
         /// <summary>
         /// Cập nhật biểu ghi.
         /// </summary>

@@ -12,6 +12,8 @@
         <AssociationConnector Association="RatingDemoTestModel.FK_Answers_Users" ManuallyRouted="false" />
         <EntityTypeShape EntityType="RatingDemoTestModel.Service" Width="1.5" PointX="0.75" PointY="1.25" />
         <AssociationConnector Association="RatingDemoTestModel.FK_Questions_Services" />
+        <EntityTypeShape EntityType="RatingDemoTestModel.AnswerOption" Width="1.5" PointX="5.25" PointY="4.125" />
+        <AssociationConnector Association="RatingDemoTestModel.FK_AnswerOptions_Questions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

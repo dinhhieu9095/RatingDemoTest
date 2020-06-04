@@ -5,7 +5,14 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RatingDemoTest;
-using RatingDemoTest.Controllers;
+using RatingDemoTest.Business.Interface;
+using RatingDemoTest.Business.Concrete;
+using RatingDemoTest.MVC;
+using RatingDemoTest.Repository.Interface;
+using RatingDemoTest.Repository.EF;
+using RatingDemoTest.Business.DTO;
+using RatingDemoTest.Repository.Entities;
+using AutoMapper;
 
 namespace RatingDemoTest.Tests.Controllers
 {
@@ -13,42 +20,52 @@ namespace RatingDemoTest.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void GetQuestions()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            Mapper.Initialize(x => {
+                x.AddProfile<MappingProfileModel>();
+                x.AddProfile<MappingProfileDTO>();
+            });
+            RatingDemoTestEntities ratingDemoTestEntities = new RatingDemoTestEntities();
+            IUnitOfWork unitOfWork = new UnitOfWork(ratingDemoTestEntities);
+            IBusiness Business = new Business.Concrete.Business(unitOfWork);
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            FilterDTO filterDTO = new FilterDTO
+            {
+                PassCode = "P@ssw0rd"
+            };
+            var result = Business.GetUser(filterDTO);
 
             // Assert
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void About()
+        public void SaveAnswer()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            Mapper.Initialize(x => {
+                x.AddProfile<MappingProfileModel>();
+                x.AddProfile<MappingProfileDTO>();
+            });
+            RatingDemoTestEntities ratingDemoTestEntities = new RatingDemoTestEntities();
+            IUnitOfWork unitOfWork = new UnitOfWork(ratingDemoTestEntities);
+            IBusiness Business = new Business.Concrete.Business(unitOfWork);
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            AnswerDTO answerDTO = new AnswerDTO
+            {
+                QuestionID = 1,
+                Comment = "Comment",
+                Point = 4,
+                UserID = 1
+            };
+            bool result = Business.SaveAnswer(answerDTO);
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
         }
     }
 }

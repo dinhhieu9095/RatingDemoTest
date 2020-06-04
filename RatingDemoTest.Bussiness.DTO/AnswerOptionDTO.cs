@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace RatingDemoTest.Business.DTO
 {
-    public class ServiceDTO
+    public class AnswerOptionDTO
     {
-        public ServiceDTO()
-        {
-            this.Questions = new List<QuestionDTO>();
-        }
-
         public int ID { get; set; }
         public string Title { get; set; }
-        public string Code { get; set; }
+        public Nullable<int> QuestionID { get; set; }
+        public Nullable<int> Point { get; set; }
         public string Icon { get; set; }
 
-        public List<QuestionDTO> Questions { get; set; }
+        public virtual QuestionDTO Question { get; set; }
     }
 }

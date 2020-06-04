@@ -12,20 +12,14 @@ namespace RatingDemoTest.Repository.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class AnswerOption
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
-        {
-            this.Questions = new HashSet<Question>();
-        }
-    
         public int ID { get; set; }
         public string Title { get; set; }
-        public string Code { get; set; }
+        public Nullable<int> QuestionID { get; set; }
+        public Nullable<int> Point { get; set; }
         public string Icon { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

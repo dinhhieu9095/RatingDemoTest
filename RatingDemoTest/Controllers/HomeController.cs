@@ -30,7 +30,6 @@ namespace RatingDemoTest.MVC
 
         public ActionResult Index()
         {
-            var services = Business.GetServices();
             return View();
         }
         [HttpGet]
@@ -151,13 +150,15 @@ namespace RatingDemoTest.MVC
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
+        [HttpPost]
         public JsonResult SaveAnswer(AnswerModel answerModel)
         {
+            Logging.LogInfo("Mã câu hỏi         Điểm        Nhận xét        Ngày đánh giá");
             JsonModel model = new JsonModel();
             try
             {
                 AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerModel);
+                answerDTO.UserID = UserContext.ID;
                 bool rs = this.Business.SaveAnswer(answerDTO);
                 model = new JsonModel()
                 {
